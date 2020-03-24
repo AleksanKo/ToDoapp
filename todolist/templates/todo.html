@@ -1,27 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Todo list</title>
-</head>
-<body>
+{%extends 'base.html'%}
+{% block content %}
 <h1>ToDo list</h1>
-<form action='/addToDo/' method="post">
+<div class="container" style="margin-left:10px">
+<form action="" method="post">
    {% csrf_token %}
-    <input type="'text" name="content">
-    <input type="submit" value="Add">
+    <p><label for="todo">Add a new todo:</label></br></p>
+    {{form}}
+    <button type="submit" class="btn btn-success">Add</button>
 </form>
-<ul>
+<div class="col-xs-12" style="text-align:left padding-left:0px">
+    <ul>
     {% for item in all_items %}
-    <li>{{item.content}}
+    <li style="padding-bottom:10px">{{item.todo}}
     <form action='/deleteToDo/{{item.id}}/'
-          style="display: inline;"
+          style="display:inline;"
           method="post">
    {% csrf_token %}
-    <input type="submit" value="Delete">
+        <button type="submit" class="btn btn-danger">Delete</button>
     </form>
     </li>
     {% endfor %}
 </ul>
-</body>
-</html>
+</div>
+    </div>
+{% endblock %}

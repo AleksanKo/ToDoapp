@@ -1,0 +1,12 @@
+{%extends 'base.html'%}
+{% block content%}
+<div class="container" style="text-align:center;">
+    <div>
+<h1>This is an index page.</h1>
+<a class="btn btn-primary" href = "{% url 'todos' %}">Go to Todo list</a>
+        <form method="post">
+            {{form}}
+        </form>
+</div>
+    </div>
+{%endblock%}
