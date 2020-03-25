@@ -1,26 +1,46 @@
 {%extends 'base.html'%}
 {% block content %}
-<h1>ToDo list</h1>
-<div class="container" style="margin-left:10px">
-<form action="" method="post">
-   {% csrf_token %}
-    <p><label for="todo">Add a new todo:</label></br></p>
-    {{form}}
-    <button type="submit" class="btn btn-success">Add</button>
+<div class="container">
+<h1 class="text-center">ToDo list</h1>
+    <div>
+        <div class="col-md-4" style="text-align:left">
+            <div style="margin-bottom:5px">
+<form method="post">
+    {% csrf_token %}
+    <span><label for="addingANewToDo">Add a new todo:</label></br></span>
+    {{form.todo}}
+    <button type="submit" class="btn btn-primary">Add</button>
 </form>
-<div class="col-xs-12" style="text-align:left padding-left:0px">
-    <ul>
+            </div>
+    <div class="list-group">
     {% for item in all_items %}
-    <li style="padding-bottom:10px">{{item.todo}}
+        {%if item.done == False %}
+    <a href="/editToDo/{{item.id}}" class='list-group-item' style="margin-bottom:10px margin-top:10px">{{item.todo}}
+        <form action='/completeToDo/{{item.id}}/'
+          style="display:inline;"
+          method="post">
+   {% csrf_token %}
+        <button type="submit" class="btn btn-success">Complete</button>
+    </form>
     <form action='/deleteToDo/{{item.id}}/'
           style="display:inline;"
           method="post">
    {% csrf_token %}
-        <button type="submit" class="btn btn-danger">Delete</button>
+        <button type="submit" class="btn btn-danger float-right">Delete</button>
     </form>
-    </li>
+    </a>
+        {%endif%}
     {% endfor %}
-</ul>
 </div>
+</div>
+        <div class="col-md-4" style="text-align:left">
+            <h2>Completed ToDos</h2>
+            <div class="list-group">
+        {% for item in all_items %}
+        {%if item.done == True %}
+                 <a class='list-group-item' style="margin-bottom:10px margin-top:10px">{{item.todo}}</a>
+                {%endif%}
+                {%endfor%}
+        </div>
     </div>
 {% endblock %}
