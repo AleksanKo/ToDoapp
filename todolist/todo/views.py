@@ -15,29 +15,25 @@ def viewToDo(request):
     form = ToDoFormCreate()
     return render(request,'todo.html',{'form':form,'all_items':all_todos})
 
-# def addToDo(request):
-#     if request.method == 'POST':
-#         form = ToDoFormCreate(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return HttpResponseRedirect('/todo/')
-#     else:
-#         form = ToDoFormCreate()
-#     return HttpResponseRedirect('/todo/')
-
-def addAndViewToDo(request):
-    all_todos = ToDoNode.objects.all()
-    for todo in all_todos:
-        if todo.done == False:
-            print(todo.id, todo.todo)
+def addToDo(request):
     if request.method == 'POST':
         form = ToDoFormCreate(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('/todo/')
+            return HttpResponseRedirect('/todo/')
     else:
         form = ToDoFormCreate()
-    return render(request,'todo.html',{'form':form,'all_items':all_todos})
+    return HttpResponseRedirect('/todo/')
+
+def viewToDo(request):
+    all_todos = ToDoNode.objects.all()
+    all_not_completed_todos = ToDoNode.objects.filter(done=False)
+    all_completed_todos = ToDoNode.objects.filter(done=True)
+    form = ToDoFormCreate()
+    return render(request,'todo.html',{'form':form,
+                                       'all_items':all_todos,
+                                       'all_not_completed_items':all_not_completed_todos,
+                                       'all_completed_items':all_completed_todos})
 
 def completeToDo(request, todo_id):
     item_to_complete = ToDoNode.objects.get(id = todo_id)

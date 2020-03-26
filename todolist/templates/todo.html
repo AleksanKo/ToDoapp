@@ -1,26 +1,31 @@
 {%extends 'base.html'%}
+{%load bootstrap%}
 {% block content %}
 <div class="container">
 <h1 class="text-center">ToDo list</h1>
-    <div>
-        <div class="col-md-4" style="text-align:left">
-            <div style="margin-bottom:5px">
-<form method="post">
+    <div class="row">
+        <div class="col" style="text-align:left">
+        <form action='/addToDo/' method="post">
     {% csrf_token %}
-    <span><label for="addingANewToDo">Add a new todo:</label></br></span>
-    {{form.todo}}
-    <button type="submit" class="btn btn-primary">Add</button>
+    <h2><label for="addingANewToDo">Add a new todo:</label></br></h2>
+    {{form.todo|bootstrap}}
+    <button type="submit" class="btn btn-primary" style="margin-bottom:5px">Add</button>
 </form>
-            </div>
+
     <div class="list-group">
-    {% for item in all_items %}
-        {%if item.done == False %}
-    <a href="/editToDo/{{item.id}}" class='list-group-item' style="margin-bottom:10px margin-top:10px">{{item.todo}}
+        {% if all_not_completed_items%}
+    {% for item in all_not_completed_items %}
+    <a class='list-group-item' style="margin-bottom:10px margin-top:10px">{{item.todo}}
+        <div class="text-right">
+        <form action="/editToDo/{{item.id}}/" style="display:inline;" method="post">
+               {% csrf_token %}
+        <button type="submit" class="btn btn-warning">Edit</button>
+        </form>
         <form action='/completeToDo/{{item.id}}/'
           style="display:inline;"
           method="post">
    {% csrf_token %}
-        <button type="submit" class="btn btn-success">Complete</button>
+        <button type="submit" class="btn btn-success" style="margin-right:5px">Complete</button>
     </form>
     <form action='/deleteToDo/{{item.id}}/'
           style="display:inline;"
@@ -28,19 +33,34 @@
    {% csrf_token %}
         <button type="submit" class="btn btn-danger float-right">Delete</button>
     </form>
+            </div>
     </a>
+            {% endfor %}
+        {%else%}
+        <div class="text-center" style="margin-bottom:10px margin-top:10px"><h3>You have nothing to do so far.</h3></div>
         {%endif%}
-    {% endfor %}
+
 </div>
 </div>
-        <div class="col-md-4" style="text-align:left">
+        <div class="col" style="text-align:left">
             <h2>Completed ToDos</h2>
-            <div class="list-group">
-        {% for item in all_items %}
-        {%if item.done == True %}
-                 <a class='list-group-item' style="margin-bottom:10px margin-top:10px">{{item.todo}}</a>
+            <br>
+            <br>
+            <div class="list-group" style="margin-top:3px">
+        {%if all_completed_items%}
+                {% for item in all_completed_items %}
+                 <a class='list-group-item list-group-item-success' style="margin-bottom:10px margin-top:10px">{{item.todo}}
+                     <form action='/deleteToDo/{{item.id}}/'
+          style="display:inline;"
+          method="post">
+   {% csrf_token %}
+        <button type="submit" class="btn btn-danger float-right">Delete</button>
+    </form></a>
+                                {%endfor%}
+                {%else%}
+                <div class="text-center" style="margin-bottom:10px margin-top:10px"><h3>You have done nothing so far.</h3></div>
                 {%endif%}
-                {%endfor%}
+
         </div>
     </div>
 {% endblock %}
