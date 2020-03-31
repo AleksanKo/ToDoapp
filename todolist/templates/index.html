@@ -3,12 +3,13 @@
 <div class="top-bar" style="background:none !important;">
     <div class="container">
         <div class="row align-items-center">
- <h1 style = "text-align: left !important; font-size: 25px;">ToDo App</h1>
+ <h1 style = "text-align: left !important; font-size: 25px;margin-top:10px; margin-right:10px">ToDo App</h1>
             <div class="login">
-                <button href="login.html" class="login-btn">
+
+                <a href="{% url 'login' %}" class="btn btn-primary">
                     <i class="fa fa-sign-in"></i>
-                    <span">Log In</span></button>
-                <button href="#" class="signup-btn">
+                    <span>Log In</span></a>
+                <button href="#" class="btn signup-btn">
                     <i class="fa fa-user"></i>
                     <span class="d-none d-md-inline-block">Sign Up</span></button>
             </div>
@@ -19,7 +20,7 @@
 {% block content%}
 <div class="container" style="text-align:center;">
     <div>
-<h1>This is an index page.</h1>
+<h1>This is a small ToDo app.</h1>
 <a class="btn btn-primary" href = "{% url 'todos' %}">Go to Todo list</a>
 </div>
     </div>
