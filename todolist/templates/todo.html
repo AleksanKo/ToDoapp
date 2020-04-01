@@ -3,24 +3,22 @@
 {% block content %}
    {% if user.is_authenticated %}
 <div class="container">
-    <h1 class="text-center">ToDo list</h1>
     <div class="row">
         <div class="col" style="text-align:left">
         <form action='{% url "add_todo" %}' method="post">
     {% csrf_token %}
-    <h4><label for="add_todo">Add a new todo:</label></br></h4>
+    <h4 style="margin-bottom:0px"><label for="add_todo">Add a new todo:</label></h4>
     {{form.todo|bootstrap}}
-    <button type="submit" class="btn btn-primary" style="margin-bottom:5px">Add</button>
+    <button type="submit" class="btn btn-primary" style="margin-bottom:3px">Add</button>
 </form>
-
-    <div class="list-group">
+    <div class="list-group" style="margin-top:3px">
         {% if all_not_completed_items%}
     {% for item in all_not_completed_items %}
     <a class='list-group-item' style="margin-bottom:10px margin-top:10px">{{item.todo}}
         <div class="text-right">
         <form action="{% url 'edit_todo' item.id %}" style="display:inline;" method="post">
                {% csrf_token %}
-        <button type="submit" class="btn btn-warning fa fa-edit"></button>
+        <button onclick="myFunction()" type="submit" class="btn btn-warning fa fa-edit"></button>
         </form>
         <form action="{% url 'complete_todo' item.id %}"
           style="display:inline;"
@@ -38,7 +36,7 @@
     </a>
             {% endfor %}
         {%else%}
-        <div class="text-center" style="margin-bottom:10px margin-top:10px"><h3>You have nothing to do so far.</h3></div>
+        <div class="text-center" style="margin-bottom:10px margin-top:10px"><h4>You have nothing to do so far.</h4></div>
         {%endif%}
 
 </div>
@@ -46,11 +44,10 @@
         <div class="col" style="text-align:left">
             <h4>Completed ToDos</h4>
             <br>
-            <br>
-            <div class="list-group" style="margin-top:3px">
+            <div class="list-group">
         {%if all_completed_items%}
                 {% for item in all_completed_items %}
-                 <a class='list-group-item list-group-item-success' style="margin-bottom:10px margin-top:10px">{{item.todo}}
+                 <a class='list-group-item' style="margin-bottom:10px margin-top:10px">{{item.todo}}
                      <form action='{% url "delete_todo" item.id %}'
           style="display:inline;"
           method="post">
@@ -59,10 +56,11 @@
     </form></a>
                                 {%endfor%}
                 {%else%}
-                <div class="text-center" style="margin-bottom:10px margin-top:10px"><h3>You have done nothing so far.</h3></div>
+                <div class="text-center" style="margin-bottom:10px margin-top:10px"><h4>You have done nothing so far.</h4></div>
                 {%endif%}
 
         </div>
     </div>
+
         {%endif%}
 {% endblock %}

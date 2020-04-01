@@ -1,5 +1,14 @@
 {% extends "base.html" %}
 {%load bootstrap%}
+{%block header%}
+<nav class="navbar" style="background:none !important;">
+    <div class="container">
+        <div class="row align-items-center">
+ <h1 style = "text-align: left !important; font-size: 25px;">ToDo App</h1>
+        </div>
+          <ul class="navbar-nav">
+  </ul>
+{%endblock header%}
 {% block content %}
 <div class="container">
   {% if form.errors %}
@@ -14,7 +23,7 @@
       <p>Please login to see this page.</p>
     {% endif %}
   {% endif %}
-<div class="col-xs-4" style="text-align:center">
+<div class="container" style="text-align:center!important;width:200px">
   <form method="post" action="{% url 'login' %}">
     {% csrf_token %}
   {{ form.username | bootstrap }}

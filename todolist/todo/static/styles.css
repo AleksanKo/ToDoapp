@@ -1,0 +1,13 @@
+body {
+background: url("natalie-toombs-H-oqmLvMjPE-unsplash.jpg");
+background-size: cover;
+font-family: 'Indie Flower', cursive;
+}
+
+
+
+.cursive-btn {
+font-family: 'Indie Flower', cursive;
+font-size: 30px;
+color: black;
+}

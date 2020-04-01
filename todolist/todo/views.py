@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 
 from .models import ToDoNode
@@ -13,21 +13,15 @@ def index(request):
     return render(request,'index.html')
 
 @login_required
-def viewToDo(request):
-    all_todos = ToDoNode.objects.all()
-    form = ToDoFormCreate()
-    return render(request,'todo.html',{'form':form,'all_items':all_todos})
-
-@login_required
 def addToDo(request):
     if request.method == 'POST':
         form = ToDoFormCreate(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/todo/')
+            return redirect('/todo/')
     else:
         form = ToDoFormCreate()
-    return HttpResponseRedirect('/todo/')
+    return redirect('/todo/')
 
 @login_required
 def viewToDo(request):
