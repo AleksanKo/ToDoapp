@@ -18,7 +18,7 @@
         <div class="text-right">
         <form action="{% url 'edit_todo' item.id %}" style="display:inline;" method="post">
                {% csrf_token %}
-        <button onclick="myFunction()" type="submit" class="btn btn-warning fa fa-edit"></button>
+        <button type="submit" class="btn btn-warning fa fa-edit"></button>
         </form>
         <form action="{% url 'complete_todo' item.id %}"
           style="display:inline;"
@@ -61,6 +61,6 @@
 
         </div>
     </div>
-
+    </div>
         {%endif%}
 {% endblock %}
