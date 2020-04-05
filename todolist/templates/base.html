@@ -1,7 +1,5 @@
-
 <!DOCTYPE html>
 {%load static%}
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -24,19 +22,28 @@
      </li>
    {% else %}
      <li class="nav-item">
-         <a class="btn nav-link" href="{% url 'login'%}?next={{request.path}}">Login</a></li>
+         <a class="btn nav-link cursive-btn" href="{% url 'login'%}?next={{request.path}}">Login</a></li>
    {% endif %}
   </ul>
 </header>
 {%endblock header%}
 {% block content%}
+<div style="height:75vh"></div>
 {% endblock content%}
 {%block footer%}
-<footer class="page-footer font-small blue pt-4" style="bottom:0;display:block">
+
+<footer class="page-footer font-small blue pt-4" style="bottom:0;display:block;">
   <div class="footer-copyright text-center py-3">© 2020 Photo Copyright:
-    <a style="background-color:black;color:white;text-decoration:none;padding:4px 6px;font-family:-apple-system, BlinkMacSystemFont, &quot;San Francisco&quot;, &quot;Helvetica Neue&quot;, Helvetica, Ubuntu, Roboto, Noto, &quot;Segoe UI&quot;, Arial, sans-serif;font-size:12px;font-weight:bold;line-height:1.2;display:inline-block;border-radius:3px" href="https://unsplash.com/@nhdt?utm_medium=referral&amp;utm_campaign=photographer-credit&amp;utm_content=creditBadge" target="_blank" rel="noopener noreferrer" title="Download free do whatever you want high-resolution photos from Natalie Toombs"><span style="display:inline-block;padding:2px 3px"><svg xmlns="http://www.w3.org/2000/svg" style="height:12px;width:auto;position:relative;vertical-align:middle;top:-2px;fill:white" viewBox="0 0 32 32"><title>unsplash-logo</title><path d="M10 9V0h12v9H10zm12 5h10v18H0V14h10v9h12v-9z"></path></svg></span><span style="display:inline-block;padding:2px 3px">Natalie Toombs</span>
+    <a style="background-color:black;color:white;text-decoration:none;padding:4px 6px;font-family:-apple-system, BlinkMacSystemFont, &quot;San Francisco&quot;, &quot;Helvetica Neue&quot;, Helvetica, Ubuntu, Roboto, Noto, &quot;Segoe UI&quot;, Arial, sans-serif;font-size:12px;font-weight:bold;line-height:1.2;display:inline-block;border-radius:3px;" href="https://unsplash.com/@nhdt?utm_medium=referral&amp;utm_campaign=photographer-credit&amp;utm_content=creditBadge" target="_blank" rel="noopener noreferrer" title="Download free do whatever you want high-resolution photos from Natalie Toombs">
+        <span style="display:inline-block;padding:2px 3px">
+        <svg xmlns="http://www.w3.org/2000/svg" style="height:12px;width:auto;position:relative;vertical-align:middle;top:-2px;fill:white" viewBox="0 0 32 32">
+            <title>unsplash-logo</title>
+            <path d="M10 9V0h12v9H10zm12 5h10v18H0V14h10v9h12v-9z"></path>
+        </svg>
+        </span>
+        <span style="display:inline-block;padding:2px 3px">Natalie Toombs</span>
     </a>
-      <span class="navbar-text">Todolist done by AleksanKo, 2020</span>
+      <span class="navbar-text">Todolist done by AleksanKo</span>
   </div>
 </footer>
 {%endblock footer%}

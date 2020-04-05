@@ -1,5 +1,6 @@
+import json
 from django.shortcuts import render, redirect
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
 
 from .models import ToDoNode
@@ -14,20 +15,21 @@ def index(request):
 
 @login_required
 def addToDo(request):
-    if request.method == 'POST':
-        form = ToDoFormCreate(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('/todo/')
-    else:
-        form = ToDoFormCreate()
-    return redirect('/todo/')
+     if request.method == 'POST':
+         form = ToDoFormCreate(request.POST)
+         if form.is_valid():
+             t = ToDoNode(todo = form.cleaned_data['todo'], user=request.user)
+             t.save()
+             return redirect('/todo/')
+     else:
+         form = ToDoFormCreate()
+     return redirect('/todo/')
 
 @login_required
 def viewToDo(request):
-    all_todos = ToDoNode.objects.all()
-    all_not_completed_todos = ToDoNode.objects.filter(done=False)
-    all_completed_todos = ToDoNode.objects.filter(done=True)
+    all_todos = ToDoNode.objects.filter(user=request.user)
+    all_not_completed_todos = all_todos.filter(done=False)
+    all_completed_todos = all_todos.filter(done=True)
     form = ToDoFormCreate()
     return render(request,'todo.html',{'form':form,
                                        'all_items':all_todos,
