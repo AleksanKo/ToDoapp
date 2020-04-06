@@ -1,16 +1,20 @@
 {% extends "base.html" %}
 {%load bootstrap%}
 {%block header%}
-<nav class="navbar" style="background:none !important;">
-    <div class="container">
-        <div class="row align-items-center">
- <h1 style = "text-align: left !important; font-size: 25px;">ToDo App</h1>
-        </div>
-          <ul class="navbar-nav">
-  </ul>
+<!--<nav class="navbar" style="background:none !important;">-->
+<!--    <div class="container">-->
+<!--        <div class="row align-items-center">-->
+<!-- <h1 style = "text-align: left !important; font-size: 25px;">ToDo App</h1>-->
+<!--        </div>-->
+<!--          <ul class="navbar-nav">-->
+<!--  </ul>-->
+<!--    </div>-->
+<header class="navbar" style="background:none !important;">
+    <span class="navbar-text"><h2>ToDo App</h2></span>
+</header>
 {%endblock header%}
 {% block content %}
-<div class="container">
+<div style="height:75vh" class="container">
   {% if form.errors %}
     <p>Your username and password didn't match. Please try again.</p>
   {% endif %}
@@ -26,8 +30,7 @@
 <div class="container" style="text-align:center!important;width:200px">
   <form method="post" action="{% url 'login' %}">
     {% csrf_token %}
-  {{ form.username | bootstrap }}
-  {{ form.password | bootstrap }}
+  {{ form| bootstrap }}
 
     <button class="btn btn-success" type="submit" style="margin-top:10px">Login</button>
     <!--<button  class="btn" type="hidden" name="next"><{{next}}</button>-->
