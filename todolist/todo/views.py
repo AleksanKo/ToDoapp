@@ -4,14 +4,13 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
 from .models import ToDoNode
-from .forms import ToDoFormCreate, RegisterForm, UserCreateForm
-from django.contrib.auth.forms import UserCreationForm
+from .forms import ToDoFormCreate, RegisterForm
 
 def login(request):
     return render(request,'login.html')
 
 def register(request):
-    form = UserCreateForm(request.POST)
+    form = RegisterForm(request.POST)
     if form.is_valid():
         form.save()
         username = form.cleaned_data.get('username')
@@ -54,7 +53,6 @@ def completeToDo(request, todo_id):
     item_to_complete = ToDoNode.objects.get(id = todo_id)
     item_to_complete.done = True
     item_to_complete.save()
-    #print(item_to_complete.done, item_to_complete.id)
     return redirect('/todo/')
 
 @login_required
@@ -62,7 +60,6 @@ def editToDo(request, todo_id):
     edited_item = ToDoNode.objects.get(id = todo_id)
     edited_item.todo = 'LOL'
     edited_item.save()
-    print(edited_item.done)
     return redirect('/todo/')
 
 @login_required
