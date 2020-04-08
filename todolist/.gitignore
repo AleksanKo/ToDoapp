@@ -1,0 +1,6 @@
+newenvname
+newenv
+*.pyc
+staticfiles
+.env
+db.sqlite3
